@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update table="sys_script_include">
     <sys_script_include action="INSERT_OR_UPDATE">
-        <access>package_private</access>
+        <access>public</access>
         <active>true</active>
         <api_name>x_40661_hotel.HotelUtils</api_name>
-        <client_callable>false</client_callable>
+        <client_callable>true</client_callable>
         <description/>
         <name>HotelUtils</name>
         <script><![CDATA[var HotelUtils = {
 	getGuestsWithReservations: function(){
 		var guestReservation = new GlideAggregate('x_40661_hotel_m2m_guests_reservations');
 		guestReservation.groupBy('guest');
+		guestReservation.addQuery('reservation.arrival', '>', gs.daysAgo(1));
 		guestReservation.query();
 		var guests = [];
 		while(guestReservation.next()){
-			guestReservation.push(guestReservation.guest.toString());
+			guests.push(guestReservation.guest.toString());
 		}
 		return guests;
 	}
@@ -24,7 +25,7 @@
         <sys_created_on>2016-05-07 23:51:36</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>db1726f04f571200f8cb38a18110c79d</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>HotelUtils</sys_name>
         <sys_package display_value="Hotel" source="x_40661_hotel">3e55f0fc4f931200f8cb38a18110c7ff</sys_package>
         <sys_policy>read</sys_policy>
@@ -32,6 +33,6 @@
         <sys_scope display_value="Hotel">3e55f0fc4f931200f8cb38a18110c7ff</sys_scope>
         <sys_update_name>sys_script_include_db1726f04f571200f8cb38a18110c79d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2016-05-07 23:51:36</sys_updated_on>
+        <sys_updated_on>2016-05-08 02:35:46</sys_updated_on>
     </sys_script_include>
 </record_update>

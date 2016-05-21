@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_40661_hotel.room.reservation_end</event_name>
+        <name>Schedule cleaning</name>
+        <order>100</order>
+        <script><![CDATA[var group = new GlideRecord('sys_user_group');
+var groupName = 'Housekeeping';
+if(group.get('name',groupName)){
+	var maintanance = new GlideRecord('x_40661_hotel_maintanance');
+	maintanance.newRecord();
+	maintanance.short_description= 'End reservation cleaning';
+	maintanance.description = 'Please perform the standard cleaning for the room listed above';
+	maintanance.assignment_group = group.sys_id;
+	maintanance.room = current.sys_id.toString();
+	maintanance.insert();
+} else {
+	gs.error('Could not find group for group name: ' + groupName);
+}]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2016-05-21 13:02:41</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>1eff18594f231200f8cb38a18110c77b</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Schedule cleaning</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Hotel" source="x_40661_hotel">3e55f0fc4f931200f8cb38a18110c7ff</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Hotel">3e55f0fc4f931200f8cb38a18110c7ff</sys_scope>
+        <sys_update_name>sysevent_script_action_1eff18594f231200f8cb38a18110c77b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2016-05-21 14:43:38</sys_updated_on>
+    </sysevent_script_action>
+</record_update>
